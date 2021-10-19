@@ -35,7 +35,7 @@ class CategoriaController extends Controller
             return response()->json(
                 [
                     'mensaje' => 'Categorias',
-                    'categorias' => Categoria::alla()
+                    'categorias' => Categoria::all()
                 ],
                 Response::HTTP_OK
             );
