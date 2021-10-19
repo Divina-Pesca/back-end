@@ -35,14 +35,15 @@ class CategoriaController extends Controller
             return response()->json(
                 [
                     'mensaje' => 'Categorias',
-                    'categorias' => Categoria::all()
+                    'categorias' => Categoria::alla()
                 ],
                 Response::HTTP_OK
             );
         } catch (\Throwable $th) {
+            print($th);
             return response()->json(
                 [
-                    'mensaje' => 'Categorias no obtenidas',
+                    'mensaje' => 'Categorias no obtenidas'
                 ],
                 Response::HTTP_NOT_FOUND
             );
