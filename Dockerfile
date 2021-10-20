@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . /app
 RUN composer install
 
-FROM php:8.0.9-fpm-alpine
+FROM php:7.3-apache-stretch
 RUN docker-php-ext-install pdo pdo_mysql
 
 EXPOSE 8080
