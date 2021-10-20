@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ./
+    volumes:
+      - .:/var/www
+    environment:
+      - APP_ENV=local
+    DB_SOCKET: /cloudsql/lexical-tide-329506:us-central1:divina-pesca-db
+
+beta_settings:
+       cloud_sql_instances: lexical-tide-329506:us-central1:divina-pesca-db

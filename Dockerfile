@@ -1,7 +1,7 @@
 FROM composer:2.1.5 as build
 WORKDIR /app
 COPY . /app
-RUN composer update
+RUN composer install
 
 FROM php:8.0.9-fpm-alpine
 RUN docker-php-ext-install pdo pdo_mysql
@@ -12,4 +12,5 @@ COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY .env /var/www/.env
 RUN chmod 777 -R /var/www/storage/ && \
     echo "Listen 8080" >> /etc/apache2/ports.conf && \
-    chown -R www-data:www-data /var/www/
+    chown -R www-data:www-data /var/www/ && \
+    a2enmod rewrite
