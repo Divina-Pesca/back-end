@@ -13,15 +13,15 @@ class CreateProductosTable extends Migration
      */
     public function up()
     {
-        Schema::create('productos', function (Blueprint $table) {
+        Schema::create('producto', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
             $table->float('precio');
             $table->string('imagen');
             $table->boolean('disponible');
-            $table->unsignedBigInteger('idCategoria');
-            $table->foreign('idCategoria')->references('id')->on('categoria');
+            $table->unsignedBigInteger('categoria_id');
+            $table->foreign('categoria_id')->references('id')->on('categoria');
             $table->timestamps();
         });
     }

@@ -13,7 +13,8 @@ class Categoria extends Model
 
     protected $fillable = [
         'nombre',
-        'imagen'
+        'imagen',
+        'status'
     ];
 
     protected $casts = [
@@ -22,6 +23,6 @@ class Categoria extends Model
     ];
     public function productos()
     {
-        return $this->hasMany(Producto::class, 'idCategoria');
+        return $this->hasMany(Producto::class, 'categoria_id');
     }
 }

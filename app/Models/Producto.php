@@ -15,8 +15,9 @@ class Producto extends Model
         'descripcion',
         'precio',
         'imagen',
-        'disponible',
-        'idCategoria'
+        'categoria_id',
+        'stock',
+        'status'
     ];
 
     protected $casts = [
@@ -26,6 +27,10 @@ class Producto extends Model
 
     public function categoria()
     {
-        return $this->belongsTo(Categoria::class, 'idCategoria');
+        return $this->belongsTo(Categoria::class, 'categoria_id');
+    }
+    public function descuentos()
+    {
+        return $this->morphedByMany(Descuento::class, "tipo", "tipos_promociones_productos");
     }
 }
