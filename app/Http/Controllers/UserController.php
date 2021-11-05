@@ -16,7 +16,8 @@ class UserController extends Controller
             $user->update($request->all());
             return Res::withData($user, __("respuestas.modificado"), Response::HTTP_OK);
         } catch (\Throwable $th) {
-            return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
+            return Res::withData($th, "error", Response::HTTP_BAD_REQUEST);
+
         }
     }
     public function likeProducto($usuario_id, $producto_id)
