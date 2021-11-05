@@ -30,13 +30,20 @@ class ProductoController extends Controller
             );
         }
     }
-    public function obtenerTodos()
+    public function obtenerTodos(Request $request)
     {
+        $status = $request->query("status");
+
+        if (!is_null($status)) {
+            $categoria = Producto::where("status", $status)->get();
+        } else {
+            $categoria = Producto::all();
+        }
         try {
             return response()->json(
                 [
                     'mensaje' => 'Productos',
-                    'data' => Producto::where("status", 1)->get()
+                    'data' => $categoria
                 ],
                 Response::HTTP_OK
             );

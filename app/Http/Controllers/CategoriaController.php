@@ -32,13 +32,14 @@ class CategoriaController extends Controller
     }
     public function obtenerTodos(Request $request)
     {
-        $status = $request->query("status");
-        if (!is_null($status)) {
-            $categoria = Categoria::where("status", $status)->get();
-        } else {
-            $categoria = Categoria::all();
-        }
         try {
+
+            $status = $request->query("status");
+            if (!is_null($status)) {
+                $categoria = Categoria::where("status", $status)->get();
+            } else {
+                $categoria = Categoria::all();
+            }
             return response()->json(
                 [
                     'mensaje' => 'Categorias',
@@ -47,7 +48,7 @@ class CategoriaController extends Controller
                 Response::HTTP_OK
             );
         } catch (\Throwable $th) {
-            print($th);
+            error_log($th);
             return response()->json(
                 [
                     'mensaje' => 'Categorias no obtenidas'
@@ -105,7 +106,7 @@ class CategoriaController extends Controller
         try {
             $categoria = Categoria::with("productos")->find($id_categoria);
             if ($categoria) {
-                return Res::withData($categoria, __("respuestas.encontrado"), Response::HTTP_FOUND);
+                return Res::withData($categoria, __("respuestas.encontrado"), Response::HTTP_OK);
             }
             return Res::withoutData(__("respuestas.no_encontrado"), Response::HTTP_NOT_FOUND);
         } catch (\Throwable $th) {
