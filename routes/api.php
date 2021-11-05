@@ -40,3 +40,8 @@ Route::delete('producto/{id_producto}', 'ProductoController@eliminar');
 Route::get('promocion', 'PromocionController@obetenerTodos');
 Route::post('promocion', 'PromocionController@crear');
 Route::post('promocion/{id_promocion}/descuentos', 'PromocionController@anadirDescuentos');
+
+
+//user
+Route::put('usuario/{usuario_id}', 'UserController@actualizarInfo');
+Route::post('usuario/{usuario_id}/likeProducto/{producto_id}', 'UserController@likeProducto');
