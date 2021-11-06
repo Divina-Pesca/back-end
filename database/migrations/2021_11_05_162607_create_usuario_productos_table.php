@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserProductos extends Migration
+class CreateUsuarioProductosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -29,6 +29,6 @@ class CreateUserProductos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_productos');
+        Schema::dropIfExists('usuario_productos');
     }
 }

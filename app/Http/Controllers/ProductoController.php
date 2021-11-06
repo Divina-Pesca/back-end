@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Producto;
 use App\Utils\Res;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductoController extends Controller
@@ -35,15 +36,24 @@ class ProductoController extends Controller
         $status = $request->query("status");
 
         if (!is_null($status)) {
-            $categoria = Producto::where("status", $status)->get();
+            $productos = Producto::where("status", $status)->get();
         } else {
-            $categoria = Producto::all();
+            $productos = Producto::all();
+        }
+        $user = Auth::guard('api')->user();
+        if ($user) {
+            foreach ($productos as $producto) {
+                $isLiked = $producto->likes()->where("usuario_productos.usuario_id", $user->getKey())->first() ? true : false;
+                $producto["isLiked"] = $isLiked;
+            }
+        } else {
+            error_log("anonimo");
         }
         try {
             return response()->json(
                 [
                     'mensaje' => 'Productos',
-                    'data' => $categoria
+                    'data' => $productos
                 ],
                 Response::HTTP_OK
             );

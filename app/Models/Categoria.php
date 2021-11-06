@@ -10,7 +10,6 @@ class Categoria extends Model
     use HasFactory;
 
     protected $table = 'categoria';
-
     protected $fillable = [
         'nombre',
         'imagen',
@@ -24,5 +23,9 @@ class Categoria extends Model
     public function productos()
     {
         return $this->hasMany(Producto::class, 'categoria_id');
+    }
+    public function productosApp()
+    {
+        return $this->hasMany(Producto::class, 'categoria_id')->where("producto.status", 1);
     }
 }

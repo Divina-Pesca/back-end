@@ -10,6 +10,7 @@ return [
     "no_creado" => "Error al crear registro",
     "no_modificado" => "Error al modiicar registro",
     "no_eliminado" => "Error al eliminar registro",
-    "error" => "A ocurrido un error al realizar esta accion."
-
+    "error" => "A ocurrido un error al realizar esta accion.",
+    "like" => "Producto likeado",
+    "dislike" => "Producto dislikeado"
 ];

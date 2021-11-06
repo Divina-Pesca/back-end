@@ -33,4 +33,8 @@ class Producto extends Model
     {
         return $this->morphedByMany(Descuento::class, "tipo", "tipos_promociones_productos");
     }
+    public function likes()
+    {
+        return $this->belongsToMany(User::class, "usuario_productos", "producto_id", "usuario_id")->withTimestamps();
+    }
 }
