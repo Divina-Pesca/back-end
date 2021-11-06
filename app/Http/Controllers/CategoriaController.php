@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Utils\Res;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoriaController extends Controller
@@ -104,12 +105,23 @@ class CategoriaController extends Controller
     public function obtenerPorId($id_categoria)
     {
         try {
-            $categoria = Categoria::with("productos")->find($id_categoria);
+
+            $categoria = Categoria::find($id_categoria);
             if ($categoria) {
+                $user = Auth::guard('api')->user();
+                if ($user) {
+                    foreach ($categoria->productosApp as $producto) {
+                        $isLiked = $producto->likes()->where("usuario_productos.usuario_id", $user->getKey())->first() ? true : false;
+                        $producto["isLiked"] = $isLiked;
+                    }
+                } else {
+                    $categoria->productos;
+                }
                 return Res::withData($categoria, __("respuestas.encontrado"), Response::HTTP_OK);
             }
             return Res::withoutData(__("respuestas.no_encontrado"), Response::HTTP_NOT_FOUND);
         } catch (\Throwable $th) {
+            error_log($th);
             return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
         }
     }

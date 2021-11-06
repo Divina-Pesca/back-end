@@ -60,4 +60,10 @@ class User extends Authenticatable
 
         return $this->api_token;
     }
+    //relaciones
+
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, "usuario_productos", "usuario_id", "producto_id")->withTimestamps();
+    }
 }

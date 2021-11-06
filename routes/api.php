@@ -43,5 +43,10 @@ Route::post('promocion/{id_promocion}/descuentos', 'PromocionController@anadirDe
 
 
 //user
-Route::put('usuario/{usuario_id}', 'UserController@actualizarInfo');
-Route::post('usuario/{usuario_id}/likeProducto/{producto_id}', 'UserController@likeProducto');
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::put('usuario/editar', 'UserController@actualizarInfo');
+
+    Route::get('usuario/productosFav', 'UserController@productosLikeados');
+});
+Route::post('usuario/likeProducto/{producto_id}', 'UserController@likeProducto');
+Route::post('usuario/dislikeProducto/{producto_id}', 'UserController@dislikeProducto');
