@@ -14,6 +14,8 @@ class Producto extends Model
         'nombre',
         'descripcion',
         'precio',
+        'peso',
+        'unidad',
         'imagen',
         'categoria_id',
         'stock',
