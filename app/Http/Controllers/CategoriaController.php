@@ -37,7 +37,7 @@ class CategoriaController extends Controller
 
             $status = $request->query("status");
             if (!is_null($status)) {
-                $categoria = Categoria::where("status", $status)->get();
+                $categoria = Categoria::where("status", $status)->withCount('productosApp')->get();
             } else {
                 $categoria = Categoria::all();
             }
@@ -115,7 +115,7 @@ class CategoriaController extends Controller
                         $producto["isLiked"] = $isLiked;
                     }
                 } else {
-                    $categoria->productos;
+                    $categoria->productosApp;
                 }
                 return Res::withData($categoria, __("respuestas.encontrado"), Response::HTTP_OK);
             }

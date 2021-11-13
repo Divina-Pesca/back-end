@@ -47,9 +47,10 @@ class LoginController extends Controller
             if ($this->attemptLogin($request)) {
                 $usuario = $this->guard()->user();
                 $usuario->generateToken();
+                $usuario->likes = $usuario->productos()->count();
                 return response()->json([
                     'mensaje' => 'Login exitoso',
-                    'data' => Auth::user(),
+                    'data' => $usuario,
                 ]);
             }
 
