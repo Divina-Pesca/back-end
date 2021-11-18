@@ -20,6 +20,10 @@ class DescuentoController extends Controller
             if ($productos) {
                 $descuento->productos()->attach($productos);
             }
+            // foreach ($productos as $p) {
+            //     $producto = Producto::find($p);
+            //     $producto->descuentos()->sync($descuento);
+            // }
             DB::commit();
             $descuento->productos;
             return Res::withData($descuento, __("respuestas.creado"), Response::HTTP_CREATED);

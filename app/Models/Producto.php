@@ -39,7 +39,7 @@ class Producto extends Model
     public function descuentos()
     {
         return $this->morphedByMany(Descuento::class, "tipo", "tipos_promociones_productos")->where("descuento.status", 1)->where("validez_desde", "<=", Carbon::today())
-            ->where("validez_hasta", ">=", Carbon::today());
+            ->where("validez_hasta", ">=", Carbon::today())->orderBy("id", "desc")->take(1)->withTimestamps();
     }
     public function likes()
     {
@@ -55,7 +55,6 @@ class Producto extends Model
                     if ($descuento["es_porcentaje"] == 1) {
                         $sum = $sum + $this->precio * $descuento["valor_descuento"] / 100;
                     } else {
-                        error_log("entro");
                         $sum = $sum +  $descuento["valor_descuento"];
                     }
                 }
