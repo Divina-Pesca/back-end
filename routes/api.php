@@ -36,17 +36,23 @@ Route::post('producto', 'ProductoController@crear');
 Route::put('producto/{id_producto}', 'ProductoController@modificar');
 Route::delete('producto/{id_producto}', 'ProductoController@eliminar');
 
+//descuento
+Route::post('descuento', 'DescuentoController@crearDescuento');
+Route::get('descuento', 'DescuentoController@obtenerTodos');
+
+
 //promociones
-Route::get('promocion', 'PromocionController@obetenerTodos');
-Route::post('promocion', 'PromocionController@crear');
-Route::post('promocion/{id_promocion}/descuentos', 'PromocionController@anadirDescuentos');
+// Route::get('promocion', 'PromocionController@obetenerTodos');
+// Route::post('promocion', 'PromocionController@crear');
+// Route::post('promocion/{id_promocion}/descuentos', 'PromocionController@anadirDescuentos');
 
 
-//user
+//user app
 Route::group(['middleware' => 'auth:api'], function () {
     Route::put('usuario/editar', 'UserController@actualizarInfo');
-
     Route::get('usuario/productosFav', 'UserController@productosLikeados');
 });
+Route::get('usuario/home', 'UserController@obtenerHome');
+
 Route::post('usuario/likeProducto/{producto_id}', 'UserController@likeProducto');
 Route::post('usuario/dislikeProducto/{producto_id}', 'UserController@dislikeProducto');

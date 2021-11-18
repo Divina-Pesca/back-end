@@ -54,4 +54,14 @@ class UserController extends Controller
             return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
         }
     }
+    public function obtenerHome()
+    {
+        try {
+            $productosDescuento = Producto::has("descuentos")->get();
+            return Res::withData($productosDescuento, __("respuestas.todos"), Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            error_log($th);
+            return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
+        }
+    }
 }

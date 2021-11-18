@@ -12,22 +12,17 @@ class Descuento extends Model
     protected $table = "descuento";
 
     protected $fillable = [
-        "es_descuento", "valor_descuento", "promocion_id", "status"
+        "es_porcentaje", "valor_descuento", "status", "validez_desde", "validez_hasta"
     ];
-
     protected $casts = [
         'created_at' => 'datetime',
-        'updated_at' => 'datetime'
+        'updated_at' => 'datetime',
+        "validez_desde" => "datetime",
+        "validez_hasta" => "datetime"
     ];
 
-    public function promocion()
-    {
-        return $this->belongsTo(Promocion::class, "promocion_id");
-    }
-
-    protected $with = ['productos'];
     public function productos()
     {
-        return $this->morphToMany(Producto::class, "tipo", "tipos_promociones_productos");
+        return $this->morphToMany(Producto::class, "tipo", "tipos_promociones_productos")->withTimestamps();
     }
 }
