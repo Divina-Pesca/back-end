@@ -114,7 +114,7 @@ class ProductoController extends Controller
     public function obtenerPorId($id_producto)
     {
         try {
-            $producto = Producto::with("categoria")->find($id_producto);
+            $producto = Producto::with(["descuentos", "categoria"])->find($id_producto);
             if ($producto) {
                 return Res::withData($producto, __("respuestas.encontrado"), Response::HTTP_FOUND);
             }
