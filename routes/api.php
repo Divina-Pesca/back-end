@@ -39,6 +39,14 @@ Route::delete('producto/{id_producto}', 'ProductoController@eliminar');
 //descuento
 Route::post('descuento', 'DescuentoController@crearDescuento');
 Route::get('descuento', 'DescuentoController@obtenerTodos');
+Route::put('descuento/{descuento_id}', 'DescuentoController@modificar');
+Route::delete('descuento/{descuento_id}', 'DescuentoController@eliminar');
+Route::get('descuento/{descuento_id}/productos', 'DescuentoController@obtenerProductosPorDescuento');
+
+
+//comentario
+Route::get('comentario', 'ComentarioController@obtenerTodos');
+
 
 
 //promociones
@@ -51,6 +59,7 @@ Route::get('descuento', 'DescuentoController@obtenerTodos');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::put('usuario/editar', 'UserController@actualizarInfo');
     Route::get('usuario/productosFav', 'UserController@productosLikeados');
+    Route::post('usuario/enviarComentario', 'ComentarioController@crear');
 });
 Route::get('usuario/home', 'UserController@obtenerHome');
 

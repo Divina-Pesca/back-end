@@ -66,4 +66,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Producto::class, "usuario_productos", "usuario_id", "producto_id")->withTimestamps();
     }
+    public function comentarios()
+    {
+        return $this->hasMany(Comentario::class, "usuario_id");
+    }
 }

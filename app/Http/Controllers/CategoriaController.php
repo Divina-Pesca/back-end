@@ -37,9 +37,9 @@ class CategoriaController extends Controller
 
             $status = $request->query("status");
             if (!is_null($status)) {
-                $categoria = Categoria::where("status", $status)->withCount('productosApp')->get();
+                $categoria = Categoria::where("status", $status)->withCount('productosApp')->orderBy("created_at", "desc")->get();
             } else {
-                $categoria = Categoria::all();
+                $categoria = Categoria::orderBy("created_at", "desc")->get();
             }
             return response()->json(
                 [

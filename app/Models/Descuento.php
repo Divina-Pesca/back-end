@@ -12,7 +12,7 @@ class Descuento extends Model
     protected $table = "descuento";
 
     protected $fillable = [
-        "es_porcentaje", "valor_descuento", "status", "validez_desde", "validez_hasta"
+        "es_porcentaje", "valor_descuento", "status", "validez_desde", "validez_hasta", "nombre"
     ];
     protected $casts = [
         'created_at' => 'datetime',
