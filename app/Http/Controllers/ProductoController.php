@@ -38,7 +38,7 @@ class ProductoController extends Controller
         if (!is_null($status)) {
             $productos = Producto::where("status", $status)->get();
         } else {
-            $productos = Producto::all();
+            $productos = Producto::with("categoria:id,nombre")->whereRelation('categoria', 'status', 1)->orderBy("created_at", "desc")->get();
         }
         $user = Auth::guard('api')->user();
         if ($user) {
@@ -58,7 +58,7 @@ class ProductoController extends Controller
                 Response::HTTP_OK
             );
         } catch (\Throwable $th) {
-            print($th);
+            error_log($th);
             return response()->json(
                 [
                     'mensaje' => 'Productos no obtenidos'
