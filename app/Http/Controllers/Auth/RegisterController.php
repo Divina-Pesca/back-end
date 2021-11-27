@@ -65,7 +65,11 @@ class RegisterController extends Controller
 
 
             ],
-            ["before" => 'Usuario menor de edad']
+            [
+
+                "unique" => "Usuario ya registrado",
+                "before" => 'Usuario menor de edad'
+            ]
         );
     }
 
