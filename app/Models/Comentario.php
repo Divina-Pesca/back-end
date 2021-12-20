@@ -12,10 +12,8 @@ class Comentario extends Model
     protected $fillable = [
         "comentario", "usuario_id"
     ];
-
-    //relaciones
-    public function usuario()
-    {
-        return $this->belongsTo(User::class, "usuario_id");
-    }
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }

@@ -53,6 +53,9 @@ Route::post('cupon', 'CuponController@crear');
 Route::put('cupon/{cupon_id}', 'CuponController@modificar');
 Route::delete('cupon/{cupon_id}', 'CuponController@eliminar');
 
+//horario
+Route::get('horario', 'HorarioController@obtener');
+
 
 //promociones
 // Route::get('promocion', 'PromocionController@obetenerTodos');
