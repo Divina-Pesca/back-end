@@ -47,6 +47,11 @@ Route::get('descuento/{descuento_id}/productos', 'DescuentoController@obtenerPro
 //comentario
 Route::get('comentario', 'ComentarioController@obtenerTodos');
 
+//cupones
+Route::get('cupon', 'CuponController@obtenerTodos');
+Route::post('cupon', 'CuponController@crear');
+Route::put('cupon/{cupon_id}', 'CuponController@modificar');
+Route::delete('cupon/{cupon_id}', 'CuponController@eliminar');
 
 
 //promociones
@@ -60,6 +65,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('usuario/editar', 'UserController@actualizarInfo');
     Route::get('usuario/productosFav', 'UserController@productosLikeados');
     Route::post('usuario/enviarComentario', 'ComentarioController@crear');
+    Route::post('usuario/canjearCupon/{cupon_id}', 'UserController@canjearCupon');
+    Route::get('usuario/misCupones', 'UserController@misCupones');
+    Route::get('usuario/cupones', 'CuponController@cuponesApp');
 });
 Route::get('usuario/home', 'UserController@obtenerHome');
 
