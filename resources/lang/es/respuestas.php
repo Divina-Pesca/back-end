@@ -12,5 +12,6 @@ return [
     "no_eliminado" => "Error al eliminar registro",
     "error" => "A ocurrido un error al realizar esta accion.",
     "like" => "Producto likeado",
-    "dislike" => "Producto dislikeado"
+    "dislike" => "Producto dislikeado",
+    "cupon_canjeado" => "Cupon canjeado"
 ];
