@@ -16,4 +16,9 @@ class Comentario extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+    //relacion
+    public function usuario()
+    {
+        return $this->hasOne(User::class, "id", "usuario_id");
+    }
 }
