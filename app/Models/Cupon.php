@@ -11,7 +11,7 @@ class Cupon extends Model
     protected $table = "cupon";
 
     protected $fillable = [
-        "es_porcentaje", "valor_cupon", "status", "compra_minima", "validez_hasta"
+        "es_porcentaje", "valor_cupon", "status", "compra_minima", "validez_hasta", "color"
     ];
     protected $casts = [
         'created_at' => 'datetime',
