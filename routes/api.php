@@ -71,6 +71,12 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('usuario/canjearCupon/{cupon_id}', 'UserController@canjearCupon');
     Route::get('usuario/misCupones', 'UserController@misCupones');
     Route::get('usuario/cupones', 'CuponController@cuponesApp');
+    Route::post('usuario/ubicaciones', 'UbicacionUsuarioController@crear');
+    Route::put('usuario/ubicaciones/{ubicacion_id}', 'UbicacionUsuarioController@editar');
+    Route::get('usuario/ubicaciones', 'UbicacionUsuarioController@misUbicaciones');
+    Route::get('usuario/ubicacionesPorDefecto', 'UserController@ubicacionPorDefecto');
+    Route::get('usuario/seleccionarUbicacion/{ubicacion_id}', 'UbicacionUsuarioController@seleccionarUbicacion');
+    Route::delete('usuario/ubicacion/{ubicacion_id}', 'UbicacionUsuarioController@delete');
 });
 Route::get('usuario/home', 'UserController@obtenerHome');
 

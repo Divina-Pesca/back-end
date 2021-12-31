@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Categoria;
 use App\Models\Producto;
+use App\Models\UbicacionUsuario;
 use App\Models\User;
 use App\Utils\Res;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -59,6 +61,13 @@ class UserController extends Controller
     {
         try {
             $productosDescuento = Producto::has("descuentos")->get();
+            $user = Auth::guard('api')->user();
+            if ($user) {
+                foreach ($productosDescuento as $producto) {
+                    $isLiked = $producto->likes()->where("usuario_productos.usuario_id", $user->getKey())->first() ? true : false;
+                    $producto["isLiked"] = $isLiked;
+                }
+            }
             return Res::withData($productosDescuento, __("respuestas.todos"), Response::HTTP_OK);
         } catch (\Throwable $th) {
             error_log($th);
@@ -90,6 +99,57 @@ class UserController extends Controller
             }
             return Res::withData($cupones, __("respuestas.encontrado"), Response::HTTP_OK);
         } catch (\Throwable $th) {
+            error_log($th);
+            return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
+        }
+    }
+    public function ubicacionPorDefecto()
+    {
+        try {
+            $user = Auth::guard('api')->user();
+            if ($user->ubicacion_por_defecto != 0) {
+                $user->ubicacionPorDefecto;
+            }
+            return Res::withData($user, __("respuestas.encontrado"), Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            error_log($th);
+            return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
+        }
+    }
+    public function seleccionarUbicacion($ubicacion_id)
+    {
+        try {
+            $user = Auth::guard('api')->user();
+            DB::beginTransaction();
+            if ($ubicacion_id != 0) {
+                $ubicacion = UbicacionUsuario::find($ubicacion_id);
+
+                if ($user->ubicacion_por_defecto == 0) {
+                    $user->ubicacion_por_defecto = $ubicacion_id;
+                    $ubicacion->por_defecto = 1;
+                    $user->save();
+                    $ubicacion->save();
+                } else {
+                    if ($ubicacion_id != $user->ubicacion_por_defecto) {
+                        $user->ubicacionPorDefecto->por_defecto = 0;
+                        $user->ubicacion_por_defecto = $ubicacion_id;
+                        $ubicacion->por_defecto = 1;
+                        $ubicacion->save();
+                        $user->push();
+                    }
+                }
+            } else {
+                if ($user->ubicacion_por_defecto != 0) {
+                    $user->ubicacionPorDefecto->por_defecto = 0;
+                    $user->ubicacion_por_defecto = $ubicacion_id;
+                    $user->push();
+                }
+            }
+            $user->refresh();
+            DB::commit();
+            return Res::withData($user, __("respuestas.encontrado"), Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            DB::rollBack();
             error_log($th);
             return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
         }
