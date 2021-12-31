@@ -29,7 +29,8 @@ class User extends Authenticatable
         'tipoUsuario',
         'metodoPagoPorDefecto',
         'email',
-        'password'
+        'password',
+        'ubicacion_por_defecto'
     ];
 
     /**
@@ -41,7 +42,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
+    protected $with = ["ubicacionPorDefecto"];
     /**
      * The attributes that should be cast.
      *
@@ -70,8 +71,16 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comentario::class, "usuario_id");
     }
+    public function ubicaciones()
+    {
+        return $this->hasMany(UbicacionUsuario::class, "usuario_id");
+    }
     public function cupones()
     {
         return $this->belongsToMany(Cupon::class, "usuario_cupones", "usuario_id", "cupon_id")->withTimestamps()->withPivot("usado");
+    }
+    public function ubicacionPorDefecto()
+    {
+        return $this->hasOne(UbicacionUsuario::class, "id", "ubicacion_por_defecto");;
     }
 }
