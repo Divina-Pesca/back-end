@@ -55,6 +55,8 @@ Route::delete('cupon/{cupon_id}', 'CuponController@eliminar');
 
 //horario
 Route::get('horario', 'HorarioController@obtener');
+Route::put('horario/{horario_id}', 'HorarioController@editar');
+
 
 
 //promociones

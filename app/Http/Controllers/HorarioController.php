@@ -47,4 +47,15 @@ class HorarioController extends Controller
             return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
         }
     }
+    public function editar($horario_id, Request $request)
+    {
+        try {
+            $horario = Horario::find($horario_id);
+            $horario->update($request->all());
+            return Res::withData($horario, "Horario cambiado", Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            error_log($th);
+            return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
+        }
+    }
 }
