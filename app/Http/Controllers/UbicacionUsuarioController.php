@@ -99,9 +99,11 @@ class UbicacionUsuarioController extends Controller
         try {
             $user = Auth::guard('api')->user();
             $ubicacion = UbicacionUsuario::find($ubicacion_id);
+            if($ubicacion_id==$user->ubicacion_por_defecto){
+                $user->ubicacion_por_defecto = 0;
+                $user->save();
+            }
             $ubicacion->delete();
-            $user->ubicacion_por_defecto = 0;
-            $user->save();
             $user->refresh();
 
             return Res::withData($user, __("respuestas.encontrado"), Response::HTTP_OK);
