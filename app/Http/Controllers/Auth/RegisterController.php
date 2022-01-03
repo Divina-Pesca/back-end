@@ -68,7 +68,8 @@ class RegisterController extends Controller
             [
 
                 "unique" => "Usuario ya registrado",
-                "before" => 'Usuario menor de edad'
+                "before" => 'Usuario menor de edad',
+                "email" => "Debe ser un correo válido."
             ]
         );
     }
@@ -90,6 +91,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'metodoPagoPorDefecto' => !isset($data['metodoPagoPorDefecto']) ? null : $data['metodoPagoPorDefecto'],
             'tipoUsuario' => $data['tipoUsuario'],
+            'ubicacion_por_defecto' => 0
 
 
         ]);
