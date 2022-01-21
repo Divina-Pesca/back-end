@@ -154,4 +154,18 @@ class UserController extends Controller
             return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
         }
     }
+    public function updateFcmToken(Request $request)
+    {
+        try {
+            error_log("que pasa");
+
+            $user = Auth::guard('api')->user();
+            $user->fcm_token = $request->fcm_token;
+            $user->save();
+            return Res::withData($user, "Token FCM cambiado con exito", Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            error_log($th);
+            return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
+        }
+    }
 }

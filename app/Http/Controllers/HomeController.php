@@ -23,6 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return  response()->json(['error' => 'No existe ruta'], 401);
     }
 }
