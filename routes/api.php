@@ -56,6 +56,10 @@ Route::delete('cupon/{cupon_id}', 'CuponController@eliminar');
 //horario
 Route::get('horario', 'HorarioController@obtener');
 Route::put('horario/{horario_id}', 'HorarioController@editar');
+//notificiaciones
+Route::post('notificaciones/todos', 'NotificationController@pushNotificacionesTodos');
+Route::post('mensaje/todos', 'NotificationController@sendMessage');
+
 
 
 
@@ -79,6 +83,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('usuario/ubicacionesPorDefecto', 'UserController@ubicacionPorDefecto');
     Route::get('usuario/seleccionarUbicacion/{ubicacion_id}', 'UbicacionUsuarioController@seleccionarUbicacion');
     Route::delete('usuario/ubicacion/{ubicacion_id}', 'UbicacionUsuarioController@delete');
+    Route::post('usuario/fcmtoken', 'UserController@updateFcmToken');
 });
 Route::get('usuario/home', 'UserController@obtenerHome');
 

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\User;
+use App\Notifications\SendPushNotification;
 use App\Utils\Res;
 use Illuminate\Http\Request;
+use Notification;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,6 +17,17 @@ class ProductoController extends Controller
     {
         try {
             $producto = Producto::create($request->all());
+            $fcmTokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
+
+            Notification::send(null, new SendPushNotification(
+                "Nuevo producto",
+                "Ahora tenemos " . $request->nombre . " en nuestro almacen!",
+                $fcmTokens,
+                [
+                    "ruta" => "producto",
+                    "valor" => $producto->id
+                ]
+            ));
             return response()->json(
                 [
                     'mensaje' => 'Producto creado',

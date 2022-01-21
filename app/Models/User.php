@@ -30,7 +30,8 @@ class User extends Authenticatable
         'metodoPagoPorDefecto',
         'email',
         'password',
-        'ubicacion_por_defecto'
+        'ubicacion_por_defecto',
+        'fcm_token'
     ];
 
     /**
