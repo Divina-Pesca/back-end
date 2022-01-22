@@ -60,6 +60,14 @@ Route::put('horario/{horario_id}', 'HorarioController@editar');
 Route::post('notificaciones/todos', 'NotificationController@pushNotificacionesTodos');
 Route::post('mensaje/todos', 'NotificationController@sendMessage');
 
+//poligonos
+Route::get('poligonos', 'PoligonoController@getPoligonos');
+Route::post('poligonos', 'PoligonoController@createPoligono');
+Route::post('poligonos/multi', 'PoligonoController@createMultiPoligono');
+Route::delete('poligonos/{poligono_id}', 'PoligonoController@deletePoligono');
+Route::get('poligonos/puntos', 'PoligonoController@getPoligonsWithPoints');
+
+
 
 
 
