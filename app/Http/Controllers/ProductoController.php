@@ -23,10 +23,12 @@ class ProductoController extends Controller
                 "Nuevo producto",
                 "Ahora tenemos " . $request->nombre . " en nuestro almacen!",
                 $fcmTokens,
+
                 [
                     "ruta" => "producto",
                     "valor" => $producto->id
-                ]
+                ],
+                $request->imagen
             ));
             return response()->json(
                 [

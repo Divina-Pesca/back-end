@@ -14,18 +14,20 @@ class SendPushNotification extends Notification
     protected $title;
     protected $message;
     protected $data;
+    protected $image;
     protected $fcmTokens;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($title, $message, $fcmTokens, $data = null)
+    public function __construct($title, $message, $fcmTokens, $data = null, $image = null)
     {
         $this->title = $title;
         $this->message = $message;
         $this->fcmTokens = $fcmTokens;
         $this->data = $data;
+        $this->image = $image;
     }
 
     /**
@@ -46,12 +48,15 @@ class SendPushNotification extends Notification
      */
     public function toFirebase($notifiable)
     {
-        return (new FirebaseMessage)
-            ->withTitle($this->title)
+
+        $noti = FirebaseMessage::withTitle($this->title)
             ->withBody($this->message)
+            ->withImage($this->image)
             ->withAdditionalData($this->data)
             ->asNotification($this->fcmTokens); // OR ->asMessage($deviceTokens);
+        return $noti;
     }
+
 
     /**
      * Get the array representation of the notification.

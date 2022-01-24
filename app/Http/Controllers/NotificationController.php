@@ -27,6 +27,7 @@ class NotificationController extends Controller
             $fcmTokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
             Larafirebase::withTitle($request->titulo)
                 ->withBody($request->mensaje)
+                ->withImage($request->imagen)
                 ->withPriority('high')
                 ->withAdditionalData([
                     'ruta' => $request->ruta,

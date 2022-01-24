@@ -50,6 +50,7 @@ class UserController extends Controller
     public function productosLikeados()
     {
         try {
+            error_log("que pasa");
             $user = Auth::guard('api')->user();
             $productos = $user->productos;
             return Res::withData($productos, __("respuestas.todos"), Response::HTTP_FOUND);
@@ -157,8 +158,6 @@ class UserController extends Controller
     public function updateFcmToken(Request $request)
     {
         try {
-            error_log("que pasa");
-
             $user = Auth::guard('api')->user();
             $user->fcm_token = $request->fcm_token;
             $user->save();
