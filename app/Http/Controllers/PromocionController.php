@@ -19,7 +19,7 @@ class PromocionController extends Controller
     {
         try {
             $promociones = Promocion::where("status", 1)->get();
-            return Res::withData($promociones, __("respuestas.todos"), Response::HTTP_FOUND);
+            return Res::withData($promociones, __("respuestas.todos"), Response::HTTP_OK);
         } catch (\Throwable $th) {
             return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
         }

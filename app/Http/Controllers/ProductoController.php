@@ -132,7 +132,7 @@ class ProductoController extends Controller
         try {
             $producto = Producto::with(["descuentos", "categoria"])->find($id_producto);
             if ($producto) {
-                return Res::withData($producto, __("respuestas.encontrado"), Response::HTTP_FOUND);
+                return Res::withData($producto, __("respuestas.encontrado"), Response::HTTP_OK);
             }
             return Res::withoutData(__("respuestas.no_encontrado"), Response::HTTP_NOT_FOUND);
         } catch (\Throwable $th) {
