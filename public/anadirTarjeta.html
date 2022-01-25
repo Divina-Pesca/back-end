@@ -126,10 +126,10 @@
             });
 
             let successHandler = function (cardResponse) {
-                console.log("entre al success " + cardResponse)
+                console.log(JSON.stringify(cardResponse))
                 if (cardResponse.card.status === "valid") {
-                    window.ReactNativeWebView.postMessage(true);
-                    window.close()
+                    // window.ReactNativeWebView.postMessage(true);
+                    // window.close()
                 } else if (cardResponse.card.status === "review") {
                     $("#correcto").hide();
                     $("#review").show();
