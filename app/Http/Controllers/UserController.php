@@ -50,10 +50,9 @@ class UserController extends Controller
     public function productosLikeados()
     {
         try {
-            error_log("que pasa");
             $user = Auth::guard('api')->user();
             $productos = $user->productos;
-            return Res::withData($productos, __("respuestas.todos"), Response::HTTP_OK);
+            return Res::withData($productos, __("respuestas.todos"), Response::HTTP_FOUND);
         } catch (\Throwable $th) {
             return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
         }

@@ -29,6 +29,7 @@ class ProductoController extends Controller
                     "valor" => $producto->id
                 ],
                 $request->imagen
+
             ));
             return response()->json(
                 [
