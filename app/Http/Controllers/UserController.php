@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
@@ -161,6 +163,21 @@ class UserController extends Controller
             $user->fcm_token = $request->fcm_token;
             $user->save();
             return Res::withData($user, "Token FCM cambiado con exito", Response::HTTP_OK);
+        } catch (\Throwable $th) {
+            error_log($th);
+            return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
+        }
+    }
+    public function getTarjetas()
+    {
+        try {
+            $user = Auth::guard('api')->user();
+            $unixTime = Carbon::now()->timestamp;
+            $unixKey = "Y5FnbpWYtULtj1Muvw3cl8LJ7FVQfM" . $unixTime;
+            $hash = hash('sha256', $unixKey);
+            $token = "INNOVA-EC-SERVER" . ";" . $unixTime . ";" . $hash;
+            $response = Http::withHeaders(["Auth-Token" => base64_encode($token)])->get('https://ccapi-stg.paymentez.com/v2/card/list?uid=' . $user->id);
+            return Res::withData($response->json()["cards"], "tarjetas", 200);
         } catch (\Throwable $th) {
             error_log($th);
             return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);

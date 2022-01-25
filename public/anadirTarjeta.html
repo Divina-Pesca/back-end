@@ -126,6 +126,7 @@
             });
 
             let successHandler = function (cardResponse) {
+                console.log("entre al success " + cardResponse)
                 if (cardResponse.card.status === "valid") {
                     window.ReactNativeWebView.postMessage(true);
                     window.close()
