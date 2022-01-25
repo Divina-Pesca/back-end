@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Kutia\Larafirebase\Messages\FirebaseMessage;
+use Kutia\Larafirebase\Facades\Larafirebase;
 
 class SendPushNotification extends Notification
 {
@@ -49,12 +50,13 @@ class SendPushNotification extends Notification
     public function toFirebase($notifiable)
     {
 
-        $noti = FirebaseMessage::withTitle($this->title)
+        return Larafirebase::withTitle($this->title)
             ->withBody($this->message)
             ->withImage($this->image)
+            ->withPriority('high')
             ->withAdditionalData($this->data)
-            ->asNotification($this->fcmTokens); // OR ->asMessage($deviceTokens);
-        return $noti;
+            ->sendNotification($this->fcmTokens); // OR ->asMessage($deviceTokens);
+
     }
 
 
