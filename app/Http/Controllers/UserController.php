@@ -202,4 +202,14 @@ class UserController extends Controller
             return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
         }
     }
+    public function historicoPedidos()
+    {
+        try {
+            $user = Auth::guard('api')->user();
+            return Res::withData($user->pedidos, "pedidos", 200);
+        } catch (\Throwable $th) {
+            error_log($th);
+            return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
+        }
+    }
 }

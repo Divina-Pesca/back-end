@@ -26,7 +26,7 @@ class PedidoController extends Controller
             if ($request->metodoPago == 0) {
                 $metodo = "efectivo";
             } else {
-                $metodo = "xxxx " . $request->metodoPago["number"];
+                $metodo = "XXXX-" . $request->metodoPago["number"];
             }
             $pedido = Pedido::create([
                 "subtotal" => $request->subtotal,

@@ -76,6 +76,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(UbicacionUsuario::class, "usuario_id");
     }
+    public function pedidos()
+    {
+        return $this->hasMany(Pedido::class, "usuario_id");
+    }
     public function cupones()
     {
         return $this->belongsToMany(Cupon::class, "usuario_cupones", "usuario_id", "cupon_id")->withTimestamps()->withPivot("usado");

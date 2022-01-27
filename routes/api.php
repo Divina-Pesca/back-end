@@ -90,6 +90,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('usuario/ubicaciones/{ubicacion_id}', 'UbicacionUsuarioController@editar');
     Route::get('usuario/ubicaciones', 'UbicacionUsuarioController@misUbicaciones');
     Route::get('usuario/tarjetas', 'UserController@getTarjetas');
+    Route::get('usuario/pedidos', 'UserController@historicoPedidos');
     Route::post('usuario/tarjetas/delete', 'UserController@deleteTarjeta');
     Route::get('usuario/ubicacionesPorDefecto', 'UserController@ubicacionPorDefecto');
     Route::get('usuario/seleccionarUbicacion/{ubicacion_id}', 'UbicacionUsuarioController@seleccionarUbicacion');
