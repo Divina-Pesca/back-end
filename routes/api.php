@@ -66,6 +66,7 @@ Route::post('poligonos', 'PoligonoController@createPoligono');
 Route::post('poligonos/multi', 'PoligonoController@createMultiPoligono');
 Route::delete('poligonos/{poligono_id}', 'PoligonoController@deletePoligono');
 Route::get('poligonos/puntos', 'PoligonoController@getPoligonsWithPoints');
+Route::get('pedidos', 'PedidoController@getAll');
 
 
 
@@ -89,13 +90,13 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('usuario/ubicaciones/{ubicacion_id}', 'UbicacionUsuarioController@editar');
     Route::get('usuario/ubicaciones', 'UbicacionUsuarioController@misUbicaciones');
     Route::get('usuario/tarjetas', 'UserController@getTarjetas');
-
+    Route::post('usuario/tarjetas/delete', 'UserController@deleteTarjeta');
     Route::get('usuario/ubicacionesPorDefecto', 'UserController@ubicacionPorDefecto');
     Route::get('usuario/seleccionarUbicacion/{ubicacion_id}', 'UbicacionUsuarioController@seleccionarUbicacion');
     Route::delete('usuario/ubicacion/{ubicacion_id}', 'UbicacionUsuarioController@delete');
     Route::post('usuario/fcmtoken', 'UserController@updateFcmToken');
+    Route::post('usuario/pagarPedido', 'PedidoController@crearPedido');
 });
 Route::get('usuario/home', 'UserController@obtenerHome');
-
 Route::post('usuario/likeProducto/{producto_id}', 'UserController@likeProducto');
 Route::post('usuario/dislikeProducto/{producto_id}', 'UserController@dislikeProducto');

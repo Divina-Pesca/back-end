@@ -183,4 +183,23 @@ class UserController extends Controller
             return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
         }
     }
+    public function deleteTarjeta(Request $request)
+    {
+        try {
+            $unixTime = Carbon::now()->timestamp;
+            $unixKey = "Y5FnbpWYtULtj1Muvw3cl8LJ7FVQfM" . $unixTime;
+            $hash = hash('sha256', $unixKey);
+            $token = "INNOVA-EC-SERVER" . ";" . $unixTime . ";" . $hash;
+            $user = Auth::guard('api')->user();
+            $body = [
+                "card" => ["token" => $request->token],
+                "user" => ["id" => (string) $user->id]
+            ];
+            $response = Http::withHeaders(["Auth-Token" => base64_encode($token)])->post("https://ccapi-stg.paymentez.com/v2/card/delete/", $body);
+            return Res::withData($response->json(), "tarjetas", 200);
+        } catch (\Throwable $th) {
+            error_log($th);
+            return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
+        }
+    }
 }
