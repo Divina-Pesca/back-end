@@ -82,7 +82,6 @@ Route::get('pedidos', 'PedidoController@getAll');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::put('usuario/editar', 'UserController@actualizarInfo');
     Route::get('usuario/productosFav', 'UserController@productosLikeados');
-    Route::post('usuario/enviarComentario', 'ComentarioController@crear');
     Route::post('usuario/canjearCupon/{cupon_id}', 'UserController@canjearCupon');
     Route::get('usuario/misCupones', 'UserController@misCupones');
     Route::get('usuario/cupones', 'CuponController@cuponesApp');
@@ -101,3 +100,4 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::get('usuario/home', 'UserController@obtenerHome');
 Route::post('usuario/likeProducto/{producto_id}', 'UserController@likeProducto');
 Route::post('usuario/dislikeProducto/{producto_id}', 'UserController@dislikeProducto');
+Route::post('usuario/enviarComentario', 'ComentarioController@crear');

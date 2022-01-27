@@ -69,6 +69,7 @@ class LoginController extends Controller
             $user = Auth::guard('api')->user();
             if ($user) {
                 $user->api_token = null;
+                $user->fcm_token = null;
                 $user->save();
             }
             return response()->json(['mensaje' => 'Cerro sesion el usuario ' . $user->nombre . ' ' . $user->apellido]);
