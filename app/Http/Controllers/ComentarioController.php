@@ -14,8 +14,12 @@ class ComentarioController extends Controller
     {
         try {
             $user = Auth::guard('api')->user();
-            $comentario = new Comentario($request->all());
-            $user->comentarios()->save($comentario);
+            if ($user) {
+                $comentario = new Comentario($request->all());
+                $user->comentarios()->save($comentario);
+            } else {
+                $comentario = new Comentario($request->all());
+            }
             return Res::withData($comentario, __("respuestas.creado"), Response::HTTP_CREATED);
         } catch (\Throwable $th) {
             error_log($th);
