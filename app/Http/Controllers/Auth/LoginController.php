@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Auth;
 use \Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,10 +64,10 @@ class LoginController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    public function logout($usuario_id, Request $request)
     {
         try {
-            $user = Auth::guard('api')->user();
+            $user = User::find($usuario_id);
             if ($user) {
                 $user->api_token = null;
                 $user->fcm_token = null;
@@ -74,6 +75,7 @@ class LoginController extends Controller
             }
             return response()->json(['mensaje' => 'Cerro sesion el usuario ' . $user->nombre . ' ' . $user->apellido]);
         } catch (\Throwable $th) {
+            error_log($th);
             return response()->json(['mensaje' => 'Error al cerrar sesion'], Response::HTTP_BAD_REQUEST);
         }
     }

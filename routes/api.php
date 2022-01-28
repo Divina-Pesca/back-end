@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //auth
 Route::post('auth/login', 'Auth\LoginController@login');
 Route::post('auth/registro', 'Auth\RegisterController@register');
-Route::post('auth/logout', 'Auth\LoginController@logout');
+Route::post('auth/logout/{usuario_id}', 'Auth\LoginController@logout');
 
 //categoria
 Route::get('categoria', 'CategoriaController@obtenerTodos');
