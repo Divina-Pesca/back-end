@@ -22,12 +22,12 @@ class HorarioController extends Controller
             $valido = false;
             switch ($today->dayOfWeek) {
                 case Carbon::SATURDAY:
-                    if ($horarios[1]["startTime"] < $todayUser &&  $todayUser > $horarios[1]["endTime"]) {
+                    if ($horarios[1]["startTime"] < $todayUser &&  $todayUser < $horarios[1]["endTime"]) {
                         $valido = true;
                     }
                     break;
                 case Carbon::SUNDAY:
-                    if ($horarios[1]["startTime"] < $todayUser &&  $todayUser > $horarios[1]["endTime"]) {
+                    if ($horarios[1]["startTime"] < $todayUser &&  $todayUser < $horarios[1]["endTime"]) {
                         $valido = true;
                     }
                     break;
