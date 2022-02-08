@@ -18,6 +18,18 @@ class PedidoController extends Controller
         $pedidos = Pedido::all();
         return Res::withData($pedidos, "Pedidos", Response::HTTP_OK);
     }
+    public function cambiar($pedido_id)
+    {
+        try {
+            $pedido = Pedido::find($pedido_id);
+            $pedido->entregado = !$pedido->entregado;
+            $pedido->save();
+            return Res::withoutData("Estado Cambiado", 200);
+        } catch (\Throwable $th) {
+            error_log($th);
+            return Res::withoutData(__("respuestas.error"), Response::HTTP_BAD_REQUEST);
+        }
+    }
     public function crearPedido(Request $request)
     {
         try {
