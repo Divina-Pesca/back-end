@@ -19,7 +19,7 @@ class Pedido extends Model
         'updated_at' => 'datetime',
         "entregado" => "boolean"
     ];
-    protected $with = ["detalles"];
+    protected $with = ["detalles", "usuario"];
 
     //relaciones
     public function detalles()

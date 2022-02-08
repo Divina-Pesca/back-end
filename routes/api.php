@@ -67,6 +67,8 @@ Route::post('poligonos/multi', 'PoligonoController@createMultiPoligono');
 Route::delete('poligonos/{poligono_id}', 'PoligonoController@deletePoligono');
 Route::get('poligonos/puntos', 'PoligonoController@getPoligonsWithPoints');
 Route::get('pedidos', 'PedidoController@getAll');
+Route::put('pedidos/cambiar/{pedido_id}', 'PedidoController@cambiar');
+
 
 
 
